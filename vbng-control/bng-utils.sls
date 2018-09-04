@@ -27,7 +27,8 @@ bng_utils_config:
     - mode: 644
     - makedirs: True
     - template: jinja
-    - replace: True
+    - makedirs: True
+    - replace: False
     - contents_pillar: bng_utils:config
 
 bng_utils_service:
@@ -38,7 +39,7 @@ bng_utils_service:
     - group: root
     - mode: 644
     - makedirs: True
-    - replace: True
+    - replace: False
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
