@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{% set systemd = salt['pillar.get']('systemd', {
+    'defaults': {
+      'networkd': {
+        'configs': {}
+      }
+    }
+}, merge=True) %}
+
+
+{% for key,value in systemd.defaults.items() %}
+  {% if key not in systemd %}
+    {% do systemd.update({
+      key: value,
+      })%}
+  {% endif %}
+{% endfor %}

@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{% set accel_ppp = salt['pillar.get']('accel_ppp', {
+    'defaults': {
+      'pkgs': [
+        'cmake',
+        'pkg-config',
+        'build-essential',
+        'autoconf',
+        'automake',
+        'libtool',
+        'libnl-3-dev',
+        'libssl-dev',
+        'libpcre3-dev',
+        'libsnmp-dev',
+        'libhiredis-dev',
+        'libjson-c-dev',
+      ],
+    }
+}, merge=True) %}
+
+
+{% for key,value in accel_ppp.defaults.items() %}
+  {% if key not in accel_ppp %}
+    {% do accel_ppp.update({
+      key: value,
+      })%}
+  {% endif %}
+{% endfor %}
