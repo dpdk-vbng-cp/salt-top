@@ -7,7 +7,6 @@ Requires=network.target
 Type=oneshot
 EnvironmentFile=-/etc/default/redis-connector
 ExecStart=/opt/bng-utils/dpdk-ip-pipeline-cli.py $OPTIONS
-Restart=always
 
 [Install]
 WantedBy=multi-user.target
