@@ -19,4 +19,34 @@ bng_utils_git:
     - require:
       - file: bng_utils_git
 
+bng_utils_config:
+  file.managed:
+    - name: /etc/default/redis-connector
+    - user: root
+    - group: root
+    - mode: 644
+    - makedirs: True
+    - template: jinja
+    - replace: True
+    - contents_pillar: bng_utils:config
+
+bng_utils_service:
+  file.managed:
+    - name: /etc/systemd/system/redis-connector.service
+    - source: salt://vbng-control/files/redis-connector.service
+    - user: root
+    - group: root
+    - mode: 644
+    - makedirs: True
+    - replace: True
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - file: bng_utils_service
+  service.running:
+    - name: redis-connector
+    - require:
+      - file: bng_utils_config
+      - file: bng_utils_service
+
 {%- endif %}
