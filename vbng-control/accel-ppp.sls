@@ -61,6 +61,17 @@ accel_ppp_conf:
     - replace: True
     - contents_pillar: accel_ppp:config
 
+accel_ppp_secrets:
+  file.managed:
+    - name: /etc/ppp/chap-secrets
+    - user: root
+    - group: root
+    - mode: 644
+    - makedirs: true
+    - template: jinja
+    - contents: |
+        intel * bng_admin *
+
 accel_ppp_service:
   file.managed:
     - name: /etc/systemd/system/accel-ppp.service
@@ -75,6 +86,7 @@ accel_ppp_service:
   service.running:
     - name: accel-ppp
     - require:
+      - file: accel_ppp_secrets
       - file: accel_ppp_conf
       - file: accel_ppp_service
 
