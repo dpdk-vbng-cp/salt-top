@@ -72,6 +72,16 @@ accel_ppp_secrets:
     - contents: |
         intel * bng_admin *
 
+accel_ppp_defaults:
+  file.managed:
+    - name: /etc/default/accel-ppp
+    - source: salt://vbng-control/files/accel-ppp
+    - user: root
+    - group: root
+    - mode: 644
+    - makedirs: true
+    - replace: True
+
 accel_ppp_service:
   file.managed:
     - name: /etc/systemd/system/accel-ppp.service
@@ -79,6 +89,8 @@ accel_ppp_service:
     - user: root
     - group: root
     - mode: 644
+    - makedirs: true
+    - replace: True
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
@@ -87,6 +99,7 @@ accel_ppp_service:
     - name: accel-ppp
     - require:
       - file: accel_ppp_secrets
+      - file: accel_ppp_defaults
       - file: accel_ppp_conf
       - file: accel_ppp_service
 
