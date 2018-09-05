@@ -1,0 +1,1 @@
+OPTIONS="-c /etc/accel-ppp.conf"
