@@ -97,6 +97,7 @@ accel_ppp_service:
       - file: accel_ppp_service
   service.running:
     - name: accel-ppp
+    - enable: True
     - require:
       - file: accel_ppp_secrets
       - file: accel_ppp_defaults

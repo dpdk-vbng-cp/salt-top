@@ -46,6 +46,7 @@ bng_utils_service:
       - file: bng_utils_service
   service.running:
     - name: redis-connector
+    - enable: True
     - require:
       - file: bng_utils_config
       - file: bng_utils_service

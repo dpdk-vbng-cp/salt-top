@@ -11,6 +11,7 @@ redis_service:
     - allow_updates: True
   service.running:
     - name: redis
+    - enable: True
     - require:
       - pkg: redis_service
 
