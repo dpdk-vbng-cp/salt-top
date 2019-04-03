@@ -6,11 +6,11 @@
 redis_service:
   pkg.installed:
     - pkgs: 
-      - redis
+      - redis-server
     - refresh: True
     - allow_updates: True
   service.running:
-    - name: redis
+    - name: redis-server
     - enable: True
     - require:
       - pkg: redis_service
